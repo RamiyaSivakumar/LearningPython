@@ -1,0 +1,25 @@
+#!/usr/bin/python
+import sys
+import re
+
+output = {}
+f = open(sys.argv[1],'r')
+lines=f.readlines()
+for line in lines:
+        if re.search(r'.*\t.*\tgene\t',line):
+                name = re.findall(r'gene_name\s("\S+\")',line)
+                print "{\"geneName\":",
+                print  name,
+                print ",",
+                chrom = re.findall(r'^(\d)',line)
+                print "\"chr\":",
+                print chrom,
+                print ",",
+                start = re.findall(r'\sgene\s(\d+)\s\d+',line)
+                print "\"startPos\":",
+                print start,
+                print ",",
+                end = re.findall(r'(\d+)\s\.',line)
+                print "\"endPos\":",
+                print end,
+                print "}"
